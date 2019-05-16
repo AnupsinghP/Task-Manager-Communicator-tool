@@ -1,0 +1,50 @@
+﻿@model CommunicationTool.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Information</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt style="padding-top:10px;">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd style="padding-top:10px;">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt style="padding-top:10px;">
+            Role
+        </dt>
+
+        <dd style="padding-top:10px;">
+            @if (Model.IsDevTeam == 1)
+        {
+            @Html.DisplayName("Dev Team")
+    }
+    else
+    {
+        @Html.DisplayName("Normal User")
+}
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

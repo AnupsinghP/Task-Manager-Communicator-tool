@@ -1,0 +1,80 @@
+﻿@model CommunicationTool.ViewModel.TaskDetailsViewModel
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Task</h4>
+<hr />
+
+@using (Html.BeginForm("Edit", "Tasks", FormMethod.Post, new { encType = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label" style="padding-right:20px">Title</label>
+                @Html.TextBoxFor(m => m.Title)
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label" style="padding-right:20px"></label>
+                <select asp-for="Status" asp-items="@Model.StatusList"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label" style="padding-right:20px"></label>
+                <label>@ViewBag.UserName</label>
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedTo" class="control-label" style="padding-right:20px"></label>
+                <input asp-for="AssignedTo" class="form-control" />
+                <span asp-validation-for="AssignedTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Severity" class="control-label" style="padding-right:20px"></label>
+                <select asp-for="Severity" asp-items="@Model.SeverityList"></select>
+                <span asp-validation-for="Severity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Priority" style="padding-right:20px">Priority</label>
+                @if(Convert.ToBoolean(Context.Session.GetString("IsDevTeam")))
+                {
+                <select asp-for="Priority" asp-items="@Model.PriorityList"></select>
+                }
+                else
+                {
+                @Html.DisplayFor(model => Model.Priority)
+                }
+                @Html.ValidationMessageFor(model => model.Priority)
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DueDate)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DueDate)
+                </div>
+                <script>$(function () {
+                        $("#DueDate").datepicker();
+                    });</script>
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Files, new { type = "file", name = "Files" })<br /><br />
+                <input id="TaskId" name="TaskId" hidden="true" type="hidden" value=@Model.TaskId>
+            </div>
+            <input type="submit" value="Edit" name="Edit" id="Edit" />
+        </div>
+    </div>
+}
+<div style="padding-top:20px">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

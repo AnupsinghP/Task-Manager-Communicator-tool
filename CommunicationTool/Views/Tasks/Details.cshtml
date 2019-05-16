@@ -1,0 +1,84 @@
+﻿@model CommunicationTool.ViewModel.TaskConversationsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Task Detials</h4>
+    <hr />
+    <dl class="dl-Horizontal">
+        <span>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd style="padding-left:10px;">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt style="padding-top:10px;">
+            @Html.DisplayNameFor(model => model.AssignedTo)
+        </dt>
+        <dd style="padding-left:10px;" style="padding-top:10px;">
+            @Html.DisplayFor(model => model.AssignedTo)
+        </dd>
+        </span>
+        <span>
+            <dt>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </dt>
+            <dd style="padding-left:10px;">
+                @Html.DisplayFor(model => model.DueDate)
+            </dd>
+            <dt style="padding-top:10px;">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd style="padding-left:10px;" style="padding-top:10px;">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+        </span>
+    </dl>
+
+    <table class="table" style="padding-top:10px;">
+        <thead>
+            <tr>
+                <th>
+                    Commentor
+                </th>
+                <th>
+                    Comment
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+                @foreach (Feedback item in Model.Feedbacks)
+                {<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.User.Username)
+    </td>
+    <td>
+        <span> @item.Created </span>
+        <span> @item.Response</span>
+        <br />
+    </td>
+</tr>
+    }
+
+        </tbody>
+    </table>
+    @using (Html.BeginForm("Comment", "Tasks", FormMethod.Post, new { encType = "multipart/form-data" })){
+    <form>
+        <div class="form-group">
+            <input id="Response" name="Response" type="text">
+            <input id="TaskId" name="TaskId" hidden="true" type="hidden" value=@Model.TaskId>
+        </div>
+        <input type="submit" value="Comment" name="Comment" id="Comment" />
+    </form>
+    }
+    </div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

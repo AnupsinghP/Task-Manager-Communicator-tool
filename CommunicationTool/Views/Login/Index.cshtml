@@ -1,0 +1,70 @@
+﻿@model CommunicationTool.Models.User
+@{
+    ViewData["Title"] = "Login";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <style>
+        #login-div {
+            position: absolute;
+            left: 40%;
+            top: 40%;
+            padding: 10px 10px;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-div">
+        @using (Html.BeginForm("Autherize", "Login", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="padding-right:20px">
+                        @Html.LabelFor(model => model.Username)
+                    </td>
+                    <td style="padding-right:20px">
+                        @Html.EditorFor(model => model.Username)
+                    </td>
+                </tr>
+                <tr style="padding-top:20px">
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.Username)</td>
+                </tr>
+
+                <tr style="padding-top:20px">
+                    <td>@Html.LabelFor(model => model.Password)</td>
+                    <td>@Html.PasswordFor(model => model.Password)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.Password)</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label class="field-validation-error">@ViewBag.ErrorMessage</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" name="name" value="Login" />
+                        <input type="reset" name="name" value="Clear" />
+                    </td>
+                </tr>
+            </table>
+        }
+
+    </div>
+</body>
+</html>
